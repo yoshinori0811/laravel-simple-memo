@@ -1,16 +1,16 @@
 @extends('layouts.app')
 <!-- ../js/confirm.js  -->
 @section('javascript')
-<script src="/Users/satoyoshinori/source/laravel-simple-memo/resources/js/confirm.js"></script>
+    <script src="/js/confirm.js"></script>
 @endsection
 @section('content')
 <div class="card">
-    <div class="card-header">
+    <div class="card-header d-flex justify-content-between">
         メモの編集
-        <form class="card-body" id="delete-form" action="{{ route('destory') }}" method="POST">
+        <form id="delete-form" action="{{ route('destory') }}" method="POST">
             @csrf
             <input type="hidden" name="memo_id" value=" {{ $edit_memo[0]['id'] }} ">
-            <button type="submit" onclick="deleteHandle(event);">削除</button>
+            <i class="fas fa-trash mr-3" onclick="deleteHandle(event);"></i>
         </form>
     </div>
     <form class="card-body" action="{{ route('update') }}" method="POST">
@@ -21,7 +21,6 @@
             @error('content')
             <div class="alert alert-danger">メモ内容を入力してください！！！</div>
             @enderror
-
             @foreach($tags as $t)
             <div class="form-check form-check-inline mb-3">
                 <input  class="form-check-input" type="checkbox" name="tags[]" id="{{ $t['id'] }}"value="{{ $t['id'] }}" {{ in_array($t['id'], $include_tags) ? 'checked' : '' }}>
