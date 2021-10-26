@@ -87,7 +87,7 @@
                             <a href="/" class="card-text d-block mb-2">全て表示</a>
 
 
-                            <a href="/?tag={{ 'noTag' }}" class="card-text d-block mb-2">タグ無し</a>
+                            <a href="/?tag={{ 'noTag' }}" class="card-text d-block mb-2">未登録</a>
 
 
                             @foreach($tags as $tag)
