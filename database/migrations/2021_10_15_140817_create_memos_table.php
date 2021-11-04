@@ -18,7 +18,7 @@ class CreateMemosTable extends Migration
             $table->longText('content');
             $table->unsignedBigInteger('user_id');
             $table->softDeletes();
-            $table->timestamp('update_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
             $table->timestamp('create_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->foreign('user_id')->references('id')->on('users');
         });
