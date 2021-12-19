@@ -82,6 +82,22 @@
             <div class="row">
                 <div class="col-sm-12 col-md-2 p-0">
                     <div class="card">
+                        <div class="card-header">タスク一覧</div>
+                        <div class="card-body my-card-body">
+                            <div class="card-text d-block mb-2">今日のタスク</div>
+                            @foreach($tasks as $task)
+                            <a href="/edit_task/{{ $task['id'] }}" class="card-text d-block mb-2">{{ $task['name'] }}</a>
+                            @endforeach
+                            <a href="/?task=allTask" class="card-text d-block mb-2">全タスク表示</a>
+                            <a href="/?task=tomorrowwTask" class="card-text d-block mb-2">明日</a>
+                            <a href="/?task=weektask" class="card-text d-block mb-2">今週</a>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-2 p-0">
+                    <div class="card">
                         <div class="card-header">タグ一覧</div>
                         <div class="card-body my-card-body">
                             <a href="/" class="card-text d-block mb-2">全て表示</a>
@@ -97,7 +113,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-12 col-md-4 p-0">
+                <div class="col-sm-12 col-md-3 p-0">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">メモ一覧<a href="{{ route('home') }}"><i class="fas fa-plus-circle"></i></a></div>
                         <div class="card-body my-card-body">
@@ -107,7 +123,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-6 p-0">
+                <div class="col-sm-12 col-md-5 p-0">
                     @yield('content')
                 </div>
             </div>

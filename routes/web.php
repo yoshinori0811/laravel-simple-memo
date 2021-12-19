@@ -23,6 +23,12 @@ Auth::routes();
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/store', [HomeController::class, 'store'])->name('store');
+
+
+Route::post('/task_store',[HomeController::class, 'task_store'])->name('task_store');
+Route::get('/edit_task/{id}', [HomeController::class, 'edit_task'])->name('edit_task');
+
+
 Route::get('/edit/{id}', [HomeController::class, 'edit'])->name('edit');
 Route::post('/update', [HomeController::class, 'update'])->name('update');
 Route::post('/destory', [HomeController::class, 'destory'])->name('destory');

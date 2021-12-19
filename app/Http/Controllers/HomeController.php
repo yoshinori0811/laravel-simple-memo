@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Memo;
 use App\Models\Tags;
 use App\Models\MemoTags;
+use App\Models\task;
+
 use DB;
 
 class HomeController extends Controller
@@ -35,7 +37,7 @@ class HomeController extends Controller
     public function index()
     {
 
-        return view('create');
+        return view('task');
     }
 
 
@@ -69,6 +71,71 @@ class HomeController extends Controller
 
         return redirect (route('home') );
     }
+
+
+    /**
+     * タスク登録
+     * @param request
+     */
+
+    public function task_store(Request $request) {
+
+        $posts = $request->all();
+        // タスク情報をここでDBに追加
+        $task_id = task::insertGetId(['name' => $posts['task_name'],
+            'user_id' => \Auth::id(),
+            // 'content' => $posts[''],
+            'status' => $posts['status'],
+            'priority' => $posts['priority'],
+            // 'timelimit' => $posts['timelimit'],
+        ]);
+        $tags_exists = tags::where('user_id' , \Auth::id())
+        ->where('name', $posts['new_tag'])->exists();
+
+
+        // 新規タグを登録場合
+        // if(!empty($posts['new_tag']) && !$tags_exists) {
+        //     // 新しいタグをDBに保存する処理
+        //     $tag_id = tags::insertGetId(['user_id' => \Auth::id(),'name' => $posts['content']]);
+        //     task_tags::insert(['task_id' => $task_id, 'tag_id' => $tag_id]);
+        // }
+
+
+        // // 既存タグとタスクの関連付け
+        // if(!empty($posts['tags'][0])) {
+        //     foreach($posts['tags'] as $tag){
+        //         task_tags::insert(['task_id' => $task_id, 'tag_id' => $tag_id]);
+        //     }
+        // }
+
+        return redirect(route('home'));
+    }
+
+    /**
+     * タスクの編集画面の表示
+     * @param id
+     */
+
+
+        public function edit_task($id){
+            $task_edit = task::select('tasks.*', 'tags.*')
+            // ->leftJoin()
+            ->where('tasks.user_id' , \Auth::id())
+            ->where('tasks.id' ,$id)
+            ->whereNull('deleted_at')
+
+
+
+            ;
+            dd($id);
+            return view('edit_task');
+        }
+
+
+
+
+
+
 
     /**
      * 「メモの編集」画面の表示

@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Memo;
 use App\Models\Tags;
+use App\Models\task;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
         // タグ一覧。メモ一覧の取得
         view()->composer('*', function ($view) {
 
+
+            $task_model = new task();
+            $tasks = $task_model->getTask();
+
             // メモ一覧の取得
             $memo_model = new Memo();
             $memos = $memo_model->getMyMemo();
@@ -41,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
 
 
 
-            $view->with('memos', $memos)->with('tags', $tags);
+            $view->with('memos', $memos)->with('tags', $tags)->with('tasks', $tasks);
 
 
         });
